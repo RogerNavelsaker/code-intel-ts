@@ -46,6 +46,14 @@ code-intel-ts lsp calls <file> <line> <col> [--direction in|out] [--json]
 - Verify where a symbol resolves: `lsp definition`
 - Find all semantic usages after a repo-map pass: `lsp references`
 
+## Handoff Acceptance
+
+- When `repo-map` emits a `handoff`, inspect `primaryFile` first.
+- Treat `recommendedCommand` as the default next step unless you already know a narrower AST query.
+- Accept repo-relative paths directly; add `--repo-root` when the handoff came from another worktree or nested directory.
+- Start with `ast outline`, `ast imports`, or `ast scope`.
+- Escalate to `lsp` only after the AST pass has narrowed the exact symbol or position.
+
 ## Notes
 
 - Human-readable output is the default.

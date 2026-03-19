@@ -29,3 +29,13 @@ nix build
 ./result/bin/code-intel-ts lsp serve
 ./result/bin/code-intel-ts lsp definition src/index.ts 12 4 --repo-root /path/to/worktree
 ```
+
+Cross-tool usage:
+
+```bash
+repo-map query "**/*" --term auth --term token --lang ts --json
+code-intel-ts ast outline src/auth/token.ts --repo-root /path/to/worktree
+code-intel-ts lsp definition src/auth/token.ts 12 4 --repo-root /path/to/worktree
+```
+
+Use `repo-map` for discovery, then `code-intel-ts ast ...` for the first precise pass. Only move to `lsp ...` when you need semantic definitions, references, hover, or diagnostics.
